@@ -44,6 +44,7 @@
                 <th scope="col">Data</th>
                 <th scope="col">Hora de inicio</th>
                 <th scope="col">Hora de termino</th>
+                <th scope="col">Excluir</th>
             </tr>
         </thead>
         @foreach($reservas as $reserva)
@@ -54,6 +55,7 @@
             <td>{{$reserva->data_reserva}}</td>
             <td>{{$reserva->hora_inicio}}</td>
             <td>{{$reserva->hora_fim}}</td>
+            <a href=""><i class="fas fa-trash-alt"></i></a>
         </tr>
         @endforeach
     </table>

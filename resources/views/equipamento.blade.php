@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-	<form action="" method="">
+	<form action="{{route('equip_cadastro')}}" method="POST">
 		@csrf
 		<div class="row">
 			<div class="col">
@@ -25,6 +25,7 @@
 				<th scope="col">#</th>
 				<th scope="col">Nome</th>
 				<th scope="col">Tipo</th>
+				<th scope="col">Excluir</th>
 			</tr>
 		</thead>
 		@foreach($equipamentos as $equipamento)
@@ -32,6 +33,7 @@
 			<th class="row">{{$equipamento->id}}</th>
 			<td>{{$equipamento->nome}}</td>
 			<td>{{$equipamento->tipo}}</td>
+            <td><a href="{{route('excluir_equip',$equipamento->id)}}"><i class="fas fa-trash-alt"></i></a></td>
 		</tr>
 		@endforeach
 	</table>
