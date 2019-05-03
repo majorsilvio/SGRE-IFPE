@@ -18,5 +18,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
 Route::get('/equipamento', 'EquipamentoController@index')->name('equipamento');
+Route::post('/equipamento/cadastrar','EquipamentoController@create')->name('equip_cadastro');
+Route::get('/equipamento/delete/{id}','EquipamentoController@destroy')->name('excluir_equip');
+
 Route::get('/reserva', 'ReservasController@index')->name('reserva');
