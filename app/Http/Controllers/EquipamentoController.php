@@ -15,6 +15,7 @@ class EquipamentoController extends Controller
      */
     public function index()
     {
+        
         $equipamentos = DB::table('equipamentos')->get();
         return view('equipamento', compact('equipamentos'));
     }

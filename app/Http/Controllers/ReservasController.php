@@ -19,7 +19,11 @@ class ReservasController extends Controller
     {
         $equipamentos = DB::table('equipamentos')->get();
         // $reservas = Reserva::with('equipamentos')->with('users')->orderBy('created_at','desc');
-        $reservas = DB::table('reservas')->get();
+        $reservas = DB::table('reservas')
+                        ->join('users','users.id','=', 'reservas.user_id') 
+                        ->join('equipamentos','equipamentos.id','=', 'reservas.equipamento_id')
+                        ->select('reservas.*','users.name','equipamentos.nome') 
+                        ->get();
         return view('reserva',compact('reservas','equipamentos'));
     }
 

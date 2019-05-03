@@ -49,8 +49,8 @@
         @foreach($reservas as $reserva)
         <tr>
             <th class="row">{{$reserva->id}}</th>
-            <td>{{$reserva->equipamento_id}}</td>
-            <td>{{$reserva->user_id}}</td>
+            <td>{{$reserva->nome}}</td>
+            <td>{{$reserva->name}}</td>
             <td>{{$reserva->data_reserva}}</td>
             <td>{{$reserva->hora_inicio}}</td>
             <td>{{$reserva->hora_fim}}</td>
