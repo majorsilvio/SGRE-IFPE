@@ -18,7 +18,6 @@ class ReservasController extends Controller
     public function index()
     {
         $equipamentos = DB::table('equipamentos')->get();
-        // $reservas = Reserva::with('equipamentos')->with('users')->orderBy('created_at','desc');
         $reservas = DB::table('reservas')
                         ->join('users','users.id','=', 'reservas.user_id') 
                         ->join('equipamentos','equipamentos.id','=', 'reservas.equipamento_id')
