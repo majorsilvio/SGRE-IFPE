@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Reserva;
+use App\User;
+use App\Equipamento;
 
 class ReservasController extends Controller
 {
@@ -13,7 +17,10 @@ class ReservasController extends Controller
      */
     public function index()
     {
-        //
+        $equipamentos = DB::table('equipamentos')->get();
+        // $reservas = Reserva::with('equipamentos')->with('users')->orderBy('created_at','desc');
+        $reservas = DB::table('reservas')->get();
+        return view('reserva',compact('reservas','equipamentos'));
     }
 
     /**

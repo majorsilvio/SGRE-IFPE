@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Equipamento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EquipamentoController extends Controller
 {
@@ -13,7 +15,8 @@ class EquipamentoController extends Controller
      */
     public function index()
     {
-        //
+        $equipamentos = DB::table('equipamentos')->get();
+        return view('equipamento', compact('equipamentos'));
     }
 
     /**
