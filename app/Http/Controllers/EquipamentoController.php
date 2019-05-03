@@ -15,7 +15,7 @@ class EquipamentoController extends Controller
      */
     public function index()
     {
-        
+
         $equipamentos = DB::table('equipamentos')->get();
         return view('equipamento', compact('equipamentos'));
     }
@@ -25,9 +25,14 @@ class EquipamentoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $data)
     {
-        //
+        
+        Equipamento::create([
+            'nome' => $data->nome,
+            'tipo' => $data->tipo
+        ]);
+        return redirect('equipamento');
     }
 
     /**
@@ -83,6 +88,8 @@ class EquipamentoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('reservas')->where('equipamento_id','=',$id)->delete();
+        DB::table('equipamentos')->where('id', '=', $id)->delete();
+        return redirect('equipamento');
     }
 }
