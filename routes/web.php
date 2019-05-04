@@ -25,3 +25,5 @@ Route::post('/equipamento/cadastrar','EquipamentoController@create')->name('equi
 Route::get('/equipamento/delete/{id}','EquipamentoController@destroy')->name('excluir_equip');
 
 Route::get('/reserva', 'ReservasController@index')->name('reserva');
+Route::post('/reservas/cadastrar','ReservasController@create')->name('reserva_cadastro');
+Route::get('/reservas/delete/{id}','ReservasController@destroy')->name('excluir_reserva');
