@@ -2,14 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Reserva;
 use App\User;
 use App\Equipamento;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class ReservasController extends Controller
 {
+
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -19,10 +32,11 @@ class ReservasController extends Controller
     {
         $equipamentos = DB::table('equipamentos')->get();
         $reservas = DB::table('reservas')
-                        ->join('users','users.id','=', 'reservas.user_id') 
-                        ->join('equipamentos','equipamentos.id','=', 'reservas.equipamento_id')
-                        ->select('reservas.*','users.name','equipamentos.nome') 
-                        ->get();
+        ->join('users','users.id','=', 'reservas.user_id') 
+        ->join('equipamentos','equipamentos.id','=', 'reservas.equipamento_id')
+        ->select('reservas.id','reservas.data_reserva','reservas.hora_inicio','reservas.hora_fim','users.name','equipamentos.nome') 
+        ->orderBy('data_reserva', 'desc')
+        ->get();
         return view('reserva',compact('reservas','equipamentos'));
     }
 
@@ -31,9 +45,23 @@ class ReservasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $data)
     {
-        //
+
+        $validatedData = $data->validate([
+            'data_reserva' => 'required|date|after:today',
+            'hora_inicio' => 'required|date_format:H:i',
+            'hora_fim' => 'required|date_format:H:i|after:hora_inicio',
+            'equipamento' => 'required'
+        ]);
+        Reserva::create([
+            'data_reserva' => $data->data_reserva,
+            'hora_inicio' => $data->hora_inicio,
+            'hora_fim' => $data->hora_fim,
+            'user_id' => Auth::id(),
+            'equipamento_id' => $data->equipamento
+        ]);
+        return redirect('reserva');
     }
 
     /**
@@ -44,7 +72,7 @@ class ReservasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -89,6 +117,7 @@ class ReservasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('reservas')->where('id', '=', $id)->delete();
+        return redirect('reserva');
     }
 }
