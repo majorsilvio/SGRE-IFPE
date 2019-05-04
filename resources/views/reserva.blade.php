@@ -53,6 +53,7 @@
                 <th scope="col">Hora de inicio</th>
                 <th scope="col">Hora de termino</th>
                 <th scope="col">Excluir</th>
+                <th scope="col">Editar</th>
             </tr>
         </thead>
         <tbody>
@@ -64,6 +65,7 @@
                 <td>{{$reserva->hora_inicio}}</td>
                 <td>{{$reserva->hora_fim}}</td>
                 <td><a href="{{route('excluir_reserva',$reserva->id)}}"><i class="fas fa-trash-alt"></i></a></td>
+                <td><a href="{{route('editar_reserva',$reserva->id)}}"><i class="fas fa-edit"></i></a></td>
             </tr>
             @endforeach
         </tbody>

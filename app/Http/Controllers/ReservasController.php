@@ -104,7 +104,9 @@ class ReservasController extends Controller
      */
     public function edit($id)
     {
-        //
+        $equipamentos = DB::table('equipamentos')->get();
+        $reserva = DB::table('reservas')->where('id', '=', $id)->get();
+        return view('editar_reserva',compact('reserva','equipamentos'));
     }
 
     /**
@@ -114,9 +116,34 @@ class ReservasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $data, $id)
     {
-        //
+        $validatedData = $data->validate([
+            'data_reserva' => 'required|date|after:today',
+            'hora_inicio' => 'required|',
+            'hora_fim' => 'required|after:hora_inicio',
+            'equipamento' => 'required'
+        ]);
+
+        $hasReserva = Reserva::where([
+            ['data_reserva', $data->data_reserva],
+            ['hora_inicio','<', $data->hora_inicio],
+            ['hora_fim','>',$data->hora_inicio ],
+            ['equipamento_id', $data->equipamento]
+        ])->get();
+        if (sizeof($hasReserva) == 0) {
+        Reserva::findOrFail($id)->update([
+            'data_reserva' => $data->data_reserva,
+            'hora_inicio' => $data->hora_inicio,
+            'hora_fim' => $data->hora_fim,
+            'user_id' => Auth::id(),
+            'equipamento_id' => $data->equipamento
+        ]);
+        return redirect('reserva');
+        }else{
+            return redirect('reserva/editar/'.$id);
+        }
+
     }
 
     /**
