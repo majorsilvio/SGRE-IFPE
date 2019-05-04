@@ -54,6 +54,14 @@ class ReservasController extends Controller
             'hora_fim' => 'required|date_format:H:i|after:hora_inicio',
             'equipamento' => 'required'
         ]);
+
+        $hasReserva = Reserva::where([
+            ['data_reserva', $data->data_reserva],
+            ['hora_inicio','<', $data->hora_inicio],
+            ['hora_fim','>',$data->hora_inicio ],
+            ['equipamento_id', $data->equipamento]
+        ])->get();
+        if (sizeof($hasReserva) == 0) {
         Reserva::create([
             'data_reserva' => $data->data_reserva,
             'hora_inicio' => $data->hora_inicio,
@@ -61,6 +69,8 @@ class ReservasController extends Controller
             'user_id' => Auth::id(),
             'equipamento_id' => $data->equipamento
         ]);
+        }
+
         return redirect('reserva');
     }
 
