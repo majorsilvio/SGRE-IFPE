@@ -55,7 +55,7 @@
             <td>{{$reserva->data_reserva}}</td>
             <td>{{$reserva->hora_inicio}}</td>
             <td>{{$reserva->hora_fim}}</td>
-            <a href=""><i class="fas fa-trash-alt"></i></a>
+            <td><a href=""><i class="fas fa-trash-alt"></i></a></td>
         </tr>
         @endforeach
     </table>
