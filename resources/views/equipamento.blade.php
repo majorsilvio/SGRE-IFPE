@@ -6,11 +6,11 @@
 		@csrf
 		<div class="row">
 			<div class="col">
-				<label class="mx-auto">NOME</label>
+				<label class="mx-auto">NOME <i style="color: red">*</i></label>
 				<input class="form-control" type="text" name="nome" >
 			</div>
 			<div class="col">
-				<label>TIPO</label>				
+				<label>TIPO <i style="color: red">*</i></label>				
 				<input class="form-control" type="text" name="tipo">
 			</div>
 		</div>

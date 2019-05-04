@@ -8,6 +8,16 @@ use Illuminate\Support\Facades\DB;
 
 class EquipamentoController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -27,12 +37,16 @@ class EquipamentoController extends Controller
      */
     public function create(Request $data)
     {
-        
+        $validatedData = $data->validate([
+        'nome' => 'required',
+        'tipo' => 'required',
+        ]);
         Equipamento::create([
             'nome' => $data->nome,
             'tipo' => $data->tipo
         ]);
         return redirect('equipamento');
+        
     }
 
     /**
@@ -41,9 +55,9 @@ class EquipamentoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $data)
     {
-        //
+
     }
 
     /**
