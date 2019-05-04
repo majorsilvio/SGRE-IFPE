@@ -79,7 +79,8 @@ class EquipamentoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $equipamento = DB::table('equipamentos')->where('id', '=', $id)->get();
+        return view('editar_equipamento',compact('equipamento'));
     }
 
     /**
@@ -89,9 +90,17 @@ class EquipamentoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $data, $id)
     {
-        //
+       $validatedData = $data->validate([
+        'nome' => 'required',
+        'tipo' => 'required',
+        ]);
+        Equipamento::findOrFail($id)->update([
+            'nome' => $data->nome,
+            'tipo' => $data->tipo
+        ]);
+        return redirect('equipamento');
     }
 
     /**

@@ -26,6 +26,7 @@
 				<th scope="col">Nome</th>
 				<th scope="col">Tipo</th>
 				<th scope="col">Excluir</th>
+				<th scope="col">Editar</th>
 			</tr>
 		</thead>
 		@foreach($equipamentos as $equipamento)
@@ -34,6 +35,7 @@
 			<td>{{$equipamento->nome}}</td>
 			<td>{{$equipamento->tipo}}</td>
             <td><a href="{{route('excluir_equip',$equipamento->id)}}"><i class="fas fa-trash-alt"></i></a></td>
+            <td><a href="{{route('editar_equip',$equipamento->id)}}"><i class="fas fa-edit"></i></a></td>
 		</tr>
 		@endforeach
 	</table>
